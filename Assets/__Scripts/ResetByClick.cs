@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class ResetByClick : MonoBehaviour
 {
-    public float x;
-    public float y;
-    public float z;
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
     private Rigidbody rb;
+    
+    void Start()
+    {
+        originalPosition = gameObject.transform.position;
+        originalRotation = gameObject.transform.rotation;
+    }
 
     void OnMouseOver()
     {
         if (Input.GetMouseButton(1))
         {
             rb = GetComponent<Rigidbody>();
-            gameObject.transform.position = new Vector3(x, y, z);
-            rb.velocity = new Vector3(0f, 0f, 0f);
-            rb.angularVelocity = new Vector3(0f, 0f, 0f);
-            rb.rotation = Quaternion.Euler(0f, 0f, 0f);
+            gameObject.transform.position = originalPosition;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.rotation = originalRotation;
         }
     }
 
